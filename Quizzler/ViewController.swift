@@ -75,9 +75,13 @@ class ViewController: UIViewController {
             score += 1
             
             print("You got it right")
+            
+            ProgressHUD.showSuccess("Correct")
         }
         else {
             print("WRONG!")
+            
+            ProgressHUD.showError("WRONG")
         }
     }
     
