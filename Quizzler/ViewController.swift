@@ -22,8 +22,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let firstQuestion = allQuestions.list[0]
-        questionLabel.text = firstQuestion.questionText
+        nextQuestion()
     }
 
 
@@ -37,13 +36,10 @@ class ViewController: UIViewController {
         
         checkAnswer()
         
+        questionNum += 1
         
-        if (questionNum < allQuestions.list.count - 1) {
-            questionNum += 1
-        } else {
-            questionNum = 0
-        }
-        questionLabel.text = allQuestions.list[questionNum].questionText
+        nextQuestion()
+       
     }
     
     
@@ -54,6 +50,18 @@ class ViewController: UIViewController {
 
     func nextQuestion() {
         
+        if (questionNum >= allQuestions.list.count) {
+            let alert = UIAlertController(title: "END OF GAME", message: "WANT TO PLAY AGAIN?", preferredStyle: .alert)
+            let restartAction = UIAlertAction(title: "Restart", style: .default, handler: { (UIAlertAction) in
+                self.startOver()
+            })
+            
+            alert.addAction(restartAction)
+            present(alert, animated: true, completion: nil)
+        } else {
+            questionLabel.text = allQuestions.list[questionNum].questionText
+
+        }
     }
     
     
@@ -69,7 +77,8 @@ class ViewController: UIViewController {
     
     
     func startOver() {
-       
+       questionNum = 0
+        nextQuestion()
     }
     
 
